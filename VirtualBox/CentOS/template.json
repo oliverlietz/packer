@@ -1,0 +1,54 @@
+{
+  "variables": {
+  },
+  "builders": [
+    {
+      "type": "virtualbox-iso",
+      "guest_os_type": "RedHat_64",
+      "iso_url": "http://mirrors.kernel.org/centos/7.3.1611/isos/x86_64/CentOS-7-x86_64-NetInstall-1611.iso",
+      "iso_checksum": "f2f7367deb90a25822947660c71638333ca0eceeabecc2d631be6cd508c24494",
+      "iso_checksum_type": "sha256",
+      "ssh_username": "centos",
+      "ssh_password": "centos",
+      "ssh_wait_timeout": "10000s",
+      "vm_name": "centos",
+      "http_directory": "http",
+      "boot_wait": "10s",
+      "boot_command": [
+        "<esc><wait>",
+        "linux ks=http://{{.HTTPIP}}:{{.HTTPPort}}/ks.cfg",
+        "<enter><wait>"
+      ],
+      "shutdown_command": "echo 'centos' | sudo -S shutdown -P now",
+      "vboxmanage": [
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--memory",
+          "2048"
+        ],
+        [
+          "modifyvm",
+          "{{.Name}}",
+          "--cpus",
+          "2"
+        ]
+      ]
+    }
+  ],
+  "provisioners": [
+    {
+      "type": "shell",
+      "scripts": [
+        "./scripts/virtualbox.sh",
+        "./scripts/zerodisk.sh"
+      ]
+    }
+  ],
+  "post-processors": [
+    {
+      "type": "vagrant",
+      "output": "centos.box"
+    }
+  ]
+}

@@ -12,4 +12,4 @@ Templates
 ---------
 
 * VirtualBox
-  * CentOS (7.5, Vagrant)
+  * CentOS (8.1, Vagrant)

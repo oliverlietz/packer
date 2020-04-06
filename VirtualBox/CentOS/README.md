@@ -1,6 +1,6 @@
 # CentOS
 
-CentOS 7.5 for Vagrant and VirtualBox (ISO)
+CentOS 8.1 for Vagrant and VirtualBox (ISO)
 
     vagrant box add 'centos' centos.box
 
